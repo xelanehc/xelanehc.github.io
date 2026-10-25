@@ -101,3 +101,14 @@ export type SkillGroup = {
   label: string;
   items: string[];
 };
+
+export type Highlight = {
+  /** Numbers count up on scroll; strings render as-is. */
+  value: number | string;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  /** Where the number comes from. */
+  context: string;
+};

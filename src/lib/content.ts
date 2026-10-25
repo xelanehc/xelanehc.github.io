@@ -1,10 +1,12 @@
 import { education } from "@/content/education";
 import { experience } from "@/content/experience";
+import { highlights } from "@/content/highlights";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { publications } from "@/content/publications";
 import { skills } from "@/content/skills";
 import type {
+  Area,
   Experience,
   ExperienceKind,
   Project,
@@ -20,6 +22,20 @@ function byRecency<T extends { start: YearMonth; end?: YearMonth }>(
   const endB = b.end ?? "9999-12";
   if (endA !== endB) return endB.localeCompare(endA);
   return b.start.localeCompare(a.start);
+}
+
+export const areaLabels: Record<Area, string> = {
+  backend: "Backend",
+  systems: "Distributed Systems",
+  graphs: "Graphs",
+  mobile: "Mobile",
+  web: "Web",
+  ml: "Machine Learning",
+  robotics: "Robotics",
+};
+
+export function getHighlights() {
+  return highlights;
 }
 
 export function getProfile() {
