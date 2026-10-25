@@ -1,60 +1,60 @@
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 
-import SocialIcon from "@/components/icons/SocialIcon";
+import SpotlightCard from "@/components/motion/SpotlightCard";
 import { formatProjectDate } from "@/lib/content";
 import type { Project } from "@/types/content";
 
+import ProjectLinks from "./ProjectLinks";
 import TechList from "./TechList";
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const { slug, title, summary, highlights, tech, links } = project;
+  const { slug, title, summary, context, highlights, tech, links } = project;
 
   return (
-    <article
-      id={slug}
-      className="flex flex-col rounded-xl border border-border bg-card p-5 transition-colors hover:border-brand/40 sm:p-6"
-    >
-      <div className="flex items-baseline justify-between gap-3">
-        <h3 className="font-semibold tracking-tight">{title}</h3>
-        <span className="font-mono text-xs text-muted-foreground">
-          {formatProjectDate(project)}
-        </span>
-      </div>
-      <p className="mt-2 text-sm text-pretty">{summary}</p>
-      {highlights.length > 0 ? (
-        <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
-          {highlights.map((h) => (
-            <li key={h}>{h}</li>
-          ))}
-        </ul>
-      ) : null}
-      <div className="mt-4">
-        <TechList items={tech} />
-      </div>
-      {links.repo || links.live ? (
-        <div className="mt-auto flex gap-4 pt-5 text-sm">
-          {links.live ? (
-            <a
-              href={links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-medium hover:text-brand"
+    <SpotlightCard className="h-full">
+      <article
+        id={slug}
+        className="relative z-10 flex h-full flex-col p-5 sm:p-6"
+      >
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="font-semibold tracking-tight">
+            {/* Stretched link: the whole card opens the project page. */}
+            <Link
+              href={`/projects/${slug}`}
+              className="after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-ring"
             >
-              Live <ArrowUpRightIcon className="size-3.5" />
-            </a>
-          ) : null}
-          {links.repo ? (
-            <a
-              href={links.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium hover:text-brand"
-            >
-              <SocialIcon kind="github" className="size-3.5" /> Code
-            </a>
-          ) : null}
+              {title}
+            </Link>
+          </h3>
+          <span className="shrink-0 font-mono text-xs text-muted-foreground">
+            {formatProjectDate(project)}
+          </span>
         </div>
-      ) : null}
-    </article>
+        {context ? (
+          <p className="mt-1 font-mono text-xs text-muted-foreground">
+            {context}
+          </p>
+        ) : null}
+        <p className="mt-3 text-sm text-pretty">{summary}</p>
+        {highlights.length > 0 ? (
+          <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+            {highlights.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        ) : null}
+        <div className="mt-4">
+          <TechList items={tech} />
+        </div>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
+          <ProjectLinks links={links} />
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-brand">
+            Details
+            <ArrowRightIcon className="size-3.5 transition-transform group-hover/spotlight:translate-x-0.5" />
+          </span>
+        </div>
+      </article>
+    </SpotlightCard>
   );
 }

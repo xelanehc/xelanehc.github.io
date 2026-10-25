@@ -1,0 +1,23 @@
+{/* TODO(Alex): confirm the final accuracy (README reports 65%, resume says 71%) and add what pushed it higher. */}
+
+## The question
+
+Can a small neural network predict who wins an NBA game using only what each team has done so far that season?
+
+## Data
+
+Games come from a public Kaggle dataset of NBA results. For every game, I computed each team's **running averages** of their box-score statistics up to that point, so the model only ever sees information that would have been available before tip-off. Season openers were dropped because there's no history to average yet.
+
+## Model
+
+A compact multilayer perceptron in PyTorch, trained with binary cross-entropy and Adam, on a 75/25 train/test split.
+
+## What moved the needle
+
+- **Feature engineering beat architecture.** Adding a point-margin feature was the biggest single jump, taking accuracy from **54% to 65%**.
+- Further iteration brought the model to **71% accuracy** predicting match outcomes.
+- I also experimented with LSTM variants that treat a team's season as a sequence.
+
+## Next
+
+More hyperparameter tuning, LSTM and RNN models over recent form, and additional features.

@@ -45,7 +45,7 @@ export function buildGraph(): GraphData {
       kind: "project",
       label: p.title,
       hint: "Project",
-      href: `/projects/#${p.slug}`,
+      href: `/projects/${p.slug}`,
     })),
     ...publications.map((p): GraphNode => ({
       id: `pub:${p.id}`,

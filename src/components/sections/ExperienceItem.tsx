@@ -15,7 +15,8 @@ export default function ExperienceItem({
   return (
     <article
       id={id}
-      className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-brand/40 sm:p-6"
+      // Linked from the graph and ⌘K; `:target` highlights the entry you jumped to.
+      className="scroll-mt-24 rounded-xl border border-border bg-card p-5 transition-colors target:border-brand/60 target:ring-4 target:ring-brand/15 hover:border-brand/40 sm:p-6"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h3 className="font-semibold tracking-tight">

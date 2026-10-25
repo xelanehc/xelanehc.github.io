@@ -16,7 +16,7 @@ export default function ProjectsPage() {
       <PageHeader
         eyebrow="Projects"
         title="Things I've built"
-        description="Side projects and hackathon builds, mostly where ML meets the web."
+        description="Hackathon builds and side projects, mostly where machine learning meets the web."
       />
       <div className="grid gap-4 sm:grid-cols-2">
         {projects.map((project, i) => (

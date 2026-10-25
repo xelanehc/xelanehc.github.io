@@ -32,7 +32,7 @@ export default function SiteHeader() {
         heading: "Projects",
         kind: "project",
         items: getProjects().map((p) => ({
-          href: `/projects/#${p.slug}`,
+          href: `/projects/${p.slug}`,
           label: p.title,
         })),
       },

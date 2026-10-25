@@ -1,0 +1,25 @@
+{/* TODO(Alex): describe which parts of the pipeline you built, and add a demo clip or screenshot. */}
+
+## The idea
+
+Books hold incredible stories, but it's hard for them to reach new audiences in a world that runs on video. Trailers are proven to captivate people, so we asked: what if any book could get one automatically?
+
+Boovie takes a PDF of a book and produces a **30-second cinematic trailer**, complete with captions.
+
+## How it works
+
+The pipeline has three stages:
+
+1. **Extraction.** The uploaded PDF is converted to plain text with PyPDF2.
+2. **Transformation.** Gemini's 2M+ token context window fits an entire novel, so we send the whole book and prompt for a six-part story summary. A second prompt turns that summary into a six-shot, highly visual script written for a video model.
+3. **Assembly.** For each shot, Gemini Imagen generates a starting frame, and Runway's Gen-3 Alpha Turbo animates it from the frame and the script line. Six 5-second clips are stitched together with MoviePy, and Gemini writes captions for each part, exported as an `.srt` and overlaid on the final cut.
+
+## Challenges
+
+- **Video length limits.** Gen-3 Alpha Turbo produces 5-second clips, so the script had to be structured as exactly six self-contained shots.
+- **Script vs. story.** A good video prompt describes camera and lighting, not plot. Keeping a separate summary preserved the story for captions while the script stayed purely visual.
+- **An image-first API.** Runway needs a starting image along with text, which is why every shot gets an Imagen frame first.
+
+## Stack
+
+React with Mantine on the frontend, Flask on the backend, Gemini for summarizing, scripting, captions, and frames, Runway for video, and MoviePy for assembly.

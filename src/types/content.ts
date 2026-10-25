@@ -57,6 +57,8 @@ export type Experience = {
 export type ProjectLinks = {
   repo?: string;
   live?: string;
+  /** Write-up such as a Devpost page or blog post. */
+  writeup?: string;
   paper?: string;
 };
 
@@ -71,6 +73,8 @@ export type Project = {
   tech: string[];
   highlights: string[];
   links: ProjectLinks;
+  /** Short context line, e.g. "AIATL '24 hackathon · team of 4". */
+  context?: string;
   featured: boolean;
   /** True when `src/content/projects/<slug>.mdx` exists. */
   hasCaseStudy: boolean;
