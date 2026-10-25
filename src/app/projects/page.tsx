@@ -1,0 +1,30 @@
+import Reveal from "@/components/motion/Reveal";
+import PageHeader from "@/components/sections/PageHeader";
+import ProjectCard from "@/components/sections/ProjectCard";
+import { getProjects } from "@/lib/content";
+
+export const metadata = {
+  title: "Projects",
+  description: "Software projects by Alex Chen.",
+};
+
+export default function ProjectsPage() {
+  const projects = getProjects();
+
+  return (
+    <div className="space-y-10">
+      <PageHeader
+        eyebrow="Projects"
+        title="Things I've built"
+        description="Side projects and hackathon builds, mostly where ML meets the web."
+      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        {projects.map((project, i) => (
+          <Reveal key={project.slug} delay={i * 0.06}>
+            <ProjectCard project={project} />
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}

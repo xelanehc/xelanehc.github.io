@@ -1,0 +1,206 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand: the one saturated color (links, focus, graph nodes). */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  /* Secondary node color for the graph and small highlights. */
+  --color-brand-warm: var(--brand-warm);
+
+  --color-graph-node: var(--graph-node);
+  --color-graph-node-active: var(--graph-node-active);
+  --color-graph-edge: var(--graph-edge);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(0.99 0.002 247);
+  --foreground: oklch(0.18 0.012 255);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.2 0.014 255);
+  --primary-foreground: oklch(0.985 0.002 247);
+  --secondary: oklch(0.96 0.005 250);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.96 0.005 250);
+  --muted-foreground: oklch(0.48 0.016 255);
+  --accent: oklch(0.955 0.008 220);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.91 0.007 250);
+  --input: oklch(0.91 0.007 250);
+
+  --brand: oklch(0.5 0.115 200);
+  --brand-foreground: oklch(0.99 0.002 247);
+  --brand-warm: oklch(0.66 0.16 55);
+  --ring: var(--brand);
+
+  --graph-node: var(--brand);
+  --graph-node-active: var(--brand-warm);
+  --graph-edge: oklch(0.18 0.012 255 / 0.14);
+  --grid-dot: oklch(0.18 0.012 255 / 0.09);
+}
+
+.dark {
+  --background: oklch(0.155 0.012 258);
+  --foreground: oklch(0.95 0.006 250);
+  --card: oklch(0.19 0.013 258);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.2 0.013 258);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.95 0.006 250);
+  --primary-foreground: oklch(0.18 0.012 258);
+  --secondary: oklch(0.24 0.013 258);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.24 0.013 258);
+  --muted-foreground: oklch(0.71 0.016 252);
+  --accent: oklch(0.26 0.02 220);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 14%);
+
+  --brand: oklch(0.8 0.12 192);
+  --brand-foreground: oklch(0.18 0.012 258);
+  --brand-warm: oklch(0.8 0.14 70);
+  --ring: var(--brand);
+
+  --graph-edge: oklch(0.95 0.006 250 / 0.13);
+  --grid-dot: oklch(0.95 0.006 250 / 0.07);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth font-sans;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand) 25%, transparent);
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Graph-paper dot grid, faded toward the bottom of the viewport. */
+@utility bg-dot-grid {
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+}
+
+/*
+ * Route transitions (React <ViewTransition>, see src/app/template.tsx).
+ * Old page leaves fast, new page rises in a beat later. The header is
+ * anchored so only content moves.
+ */
+:root {
+  --vt-exit: 140ms;
+  --vt-enter: 240ms;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.page) {
+  animation: var(--vt-exit) ease-in both vt-fade reverse;
+}
+
+::view-transition-new(.page) {
+  animation:
+    var(--vt-enter) ease-out var(--vt-exit) both vt-fade,
+    var(--vt-enter) cubic-bezier(0.2, 0.8, 0.2, 1) var(--vt-exit) both vt-rise;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    translate: 0 8px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
