@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# static export output (legacy distDir)
+/gh-pages/
+
+# personal documents — never commit
+/*.pdf
+
+docs/

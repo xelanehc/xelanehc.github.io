@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  distDir: 'gh-pages'
+  }
 };
 
 export default nextConfig;
