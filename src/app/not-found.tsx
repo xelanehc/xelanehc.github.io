@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Not found",
+  robots: { index: false },
 };
 
 export default function NotFound() {

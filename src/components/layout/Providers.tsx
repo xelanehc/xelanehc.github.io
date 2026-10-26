@@ -1,10 +1,19 @@
 "use client";
 
-import { MotionConfig } from "motion/react";
+import { LazyMotion, MotionConfig } from "motion/react";
+import dynamic from "next/dynamic";
 import { ThemeProvider } from "next-themes";
 
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import RevealObserver from "@/components/motion/RevealObserver";
+
+// Toasts only appear after a user action, so the toaster loads after hydration.
+const Toaster = dynamic(
+  () => import("@/components/ui/sonner").then((mod) => mod.Toaster),
+  { ssr: false },
+);
+
+const loadFeatures = () =>
+  import("@/components/motion/features").then((mod) => mod.default);
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -15,12 +24,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
     >
       {/* "user" disables transform/layout animations under prefers-reduced-motion. */}
-      <MotionConfig reducedMotion="user">
-        <TooltipProvider delayDuration={300}>
+      {/* `strict` makes any full `motion.*` component throw: use `m.*`. */}
+      <LazyMotion features={loadFeatures} strict>
+        <MotionConfig reducedMotion="user">
           {children}
+          <RevealObserver />
           <Toaster position="bottom-center" />
-        </TooltipProvider>
-      </MotionConfig>
+        </MotionConfig>
+      </LazyMotion>
     </ThemeProvider>
   );
 }

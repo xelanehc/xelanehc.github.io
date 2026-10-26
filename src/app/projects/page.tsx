@@ -2,11 +2,14 @@ import Reveal from "@/components/motion/Reveal";
 import PageHeader from "@/components/sections/PageHeader";
 import ProjectCard from "@/components/sections/ProjectCard";
 import { getProjects } from "@/lib/content";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Projects",
-  description: "Software projects by Alex Chen.",
-};
+  description:
+    "Hackathon builds and side projects by Alex Chen, from AI movie trailers to NBA outcome models.",
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   const projects = getProjects();
@@ -21,7 +24,7 @@ export default function ProjectsPage() {
       <div className="grid gap-4 sm:grid-cols-2">
         {projects.map((project, i) => (
           <Reveal key={project.slug} delay={i * 0.06}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} headingLevel="h2" />
           </Reveal>
         ))}
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { createContext, useContext, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -65,7 +65,7 @@ export function AreaFilterChips({
             )}
           >
             {selected ? (
-              <motion.span
+              <m.span
                 layoutId="area-chip"
                 className="absolute inset-0 -z-10 rounded-full bg-brand"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}

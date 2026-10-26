@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import { buildGraph } from "@/components/graph/buildGraph";
-import GraphCanvas from "@/components/graph/GraphCanvas";
+import LazyGraphCanvas from "@/components/graph/LazyGraphCanvas";
 import SocialIcon from "@/components/icons/SocialIcon";
 import { Button } from "@/components/ui/button";
 import { getProfile } from "@/lib/content";
@@ -63,7 +63,7 @@ export default function Hero() {
       </div>
 
       <figure className="relative">
-        <GraphCanvas
+        <LazyGraphCanvas
           data={graph}
           className="h-80 w-full sm:h-[26rem] lg:h-[30rem]"
         />

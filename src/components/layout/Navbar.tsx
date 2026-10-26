@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -54,7 +54,7 @@ export default function Navbar({ name, items, commandMenu }: NavbarProps) {
                     )}
                   >
                     {active ? (
-                      <motion.span
+                      <m.span
                         layoutId="nav-active"
                         className="absolute inset-0 -z-10 rounded-md bg-muted"
                         transition={{

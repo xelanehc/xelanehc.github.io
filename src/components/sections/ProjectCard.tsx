@@ -8,7 +8,15 @@ import type { Project } from "@/types/content";
 import ProjectLinks from "./ProjectLinks";
 import TechList from "./TechList";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  headingLevel = "h3",
+}: {
+  project: Project;
+  /** h2 when the card sits directly under the page h1. */
+  headingLevel?: "h2" | "h3";
+}) {
+  const Heading = headingLevel;
   const { slug, title, summary, context, highlights, tech, links } = project;
 
   return (
@@ -18,7 +26,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="relative z-10 flex h-full flex-col p-5 sm:p-6"
       >
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-semibold tracking-tight">
+          <Heading className="font-semibold tracking-tight">
             {/* Stretched link: the whole card opens the project page. */}
             <Link
               href={`/projects/${slug}`}
@@ -26,7 +34,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             >
               {title}
             </Link>
-          </h3>
+          </Heading>
           <span className="shrink-0 font-mono text-xs text-muted-foreground">
             {formatProjectDate(project)}
           </span>

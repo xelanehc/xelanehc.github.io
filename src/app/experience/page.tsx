@@ -23,13 +23,15 @@ import {
   getPublications,
   getSkills,
 } from "@/lib/content";
+import { pageMetadata } from "@/lib/site";
 import type { Area, Experience } from "@/types/content";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Experience",
   description:
-    "Work, research, publications, activities, education, and skills for Alex Chen.",
-};
+    "Alex Chen's work at Twitch and TikTok, graph and robotics research, a SIGMOD 2026 publication, education, and skills.",
+  path: "/experience",
+});
 
 const unionAreas = (entries: Experience[]) => [
   ...new Set(entries.flatMap((e) => e.areas)),

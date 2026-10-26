@@ -144,6 +144,21 @@
 }
 
 /*
+ * Scroll reveal (Reveal.tsx + RevealObserver.tsx). Only elements that start
+ * off-screen get data-reveal="pending"; content is never hidden without JS.
+ */
+.reveal {
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms),
+    translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal[data-reveal="pending"] {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+/*
  * Route transitions (React <ViewTransition>, see src/app/template.tsx).
  * Old page leaves fast, new page rises in a beat later. The header is
  * anchored so only content moves.

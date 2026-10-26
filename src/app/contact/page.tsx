@@ -8,11 +8,14 @@ import PageHeader from "@/components/sections/PageHeader";
 import StatusBadge from "@/components/sections/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { getProfile } from "@/lib/content";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
-  description: "Get in touch with Alex Chen.",
-};
+  description:
+    "Get in touch with Alex Chen about internships, graph and distributed systems, or research.",
+  path: "/contact",
+});
 
 const topics = [
   "Summer 2027 software engineering internships",

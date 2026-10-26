@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useScroll } from "motion/react";
+import { useScroll } from "motion/react";
+import * as m from "motion/react-m";
 import { useRef } from "react";
 
 import type { Area } from "@/types/content";
@@ -25,7 +26,7 @@ export function Timeline({ children }: { children: React.ReactNode }) {
         aria-hidden="true"
         className="absolute top-3 bottom-3 left-[11px] w-px bg-border"
       />
-      <motion.span
+      <m.span
         aria-hidden="true"
         style={{ scaleY: scrollYProgress }}
         className="absolute top-3 bottom-3 left-[11px] w-px origin-top bg-brand motion-reduce:hidden"
@@ -51,7 +52,7 @@ export function TimelineItem({
         aria-hidden="true"
         className="absolute top-6 left-[5px] size-[13px] rounded-full border-[3px] border-background bg-muted-foreground ring-1 ring-border"
       >
-        <motion.span
+        <m.span
           className="absolute inset-0 rounded-full bg-brand"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

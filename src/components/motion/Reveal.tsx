@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 type RevealProps = {
   children: React.ReactNode;
@@ -11,26 +9,28 @@ type RevealProps = {
 };
 
 /**
- * Fades and lifts content in the first time it scrolls into view.
- * Under prefers-reduced-motion, MotionConfig drops the lift and only fades.
+ * Fades and lifts content in the first time it scrolls into view. Markup is
+ * plain server HTML; RevealObserver (mounted once in Providers) handles the
+ * animation, so content is visible from first paint and without JS.
  */
 export default function Reveal({
   children,
   className,
   delay = 0,
-  as = "div",
+  as: Tag = "div",
 }: RevealProps) {
-  const Component = motion[as];
   return (
-    <Component
-      data-reveal
-      className={className}
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1], delay }}
+    <Tag
+      className={cn("reveal", className)}
+      style={
+        delay
+          ? ({
+              "--reveal-delay": `${Math.round(delay * 1000)}ms`,
+            } as React.CSSProperties)
+          : undefined
+      }
     >
       {children}
-    </Component>
+    </Tag>
   );
 }

@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/layout/Providers";
 import SiteHeader from "@/components/layout/SiteHeader";
-import { siteConfig } from "@/lib/site";
+import { defaultOgImage, siteConfig } from "@/lib/site";
 
 import "./globals.css";
 
@@ -25,6 +25,8 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
@@ -32,12 +34,25 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [defaultOgImage],
   },
+  icons: {
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
+  },
+};
+
+export const viewport: Viewport = {
+  // Matches --background in each theme (hex, for browser UI).
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfcfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#090c11" },
+  ],
 };
 
 export default function RootLayout({
@@ -54,9 +69,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col antialiased">
-        <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
         <a
           href="#main"
           className="sr-only z-[60] rounded-md bg-background px-3 py-2 text-sm font-medium shadow focus:not-sr-only focus:fixed focus:top-3 focus:left-3"

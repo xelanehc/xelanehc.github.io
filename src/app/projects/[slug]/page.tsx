@@ -12,6 +12,7 @@ import {
   getProjectBySlug,
   getProjects,
 } from "@/lib/content";
+import { ogImage, pageMetadata } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -29,11 +30,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return {};
-  return {
+  return pageMetadata({
     title: project.title,
     description: project.summary,
-    openGraph: { title: project.title, description: project.summary },
-  };
+    path: `/projects/${slug}`,
+    image: ogImage(slug, `${project.title}, a project by Alex Chen`),
+  });
 }
 
 export default async function ProjectPage({
